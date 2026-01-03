@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
+
 <body class="bg-gray-50">
     <nav class="bg-indigo-700 p-6 text-white text-center shadow-lg">
         <h1 class="text-2xl font-bold">google sheet store</h1>
@@ -29,16 +31,16 @@
             Papa.parse(sheetUrl, {
                 download: true,
                 header: true,
-                complete: function(results) {
+                complete: function (results) {
                     const data = results.data;
                     const list = document.getElementById('product-list');
                     const loader = document.getElementById('loading');
-                    
+
                     loader.style.display = 'none';
                     list.innerHTML = ''; // 清空列表
 
                     data.forEach(item => {
-                        if(item.name) {
+                        if (item.name) {
                             // 設定狀態標籤的顏色
                             let statusClass = "";
                             if (item.status === "有存貨") {
@@ -50,7 +52,7 @@
                             }
 
                             list.innerHTML += `
-                                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden">
+                                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer" onclick="openModal('image/${item.image}')">
                                     <div class="relative">
                                         <img src="image/${item.image}" class="w-full h-56 object-cover" alt="${item.name}">
                                         <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold ${statusClass}">
@@ -60,13 +62,9 @@
                                     <div class="p-5">
                                         <div class="flex justify-between items-start mb-2">
                                             <h2 class="text-xl font-bold text-gray-800">${item.name}</h2>
-                                            <span class="text-indigo-600 font-black text-lg">NT$ ${item.price}</span>
+                                            <span class="text-indigo-600 font-black text-lg">USD$ ${item.price}</span>
                                         </div>
                                         <p class="text-gray-500 text-sm h-12 overflow-hidden">${item.description}</p>
-                                        
-                                        <div class="mt-4 pt-4 border-t border-gray-50 text-right">
-                                            <span class="text-xs text-gray-400">更新時間：${new Date().toLocaleDateString()}</span>
-                                        </div>
                                     </div>
                                 </div>
                             `;
@@ -76,7 +74,38 @@
             });
         }
 
+        function openModal(imageSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            modalImg.src = imageSrc;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        }
+
         window.onload = loadProducts;
     </script>
+
+    <!-- Image Modal -->
+    <div id="image-modal"
+        class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center p-4 cursor-zoom-out"
+        onclick="closeModal()">
+        <img id="modal-image" src="" alt="Full size" class="max-w-full max-h-full rounded-lg shadow-2xl object-contain"
+            onclick="event.stopPropagation()">
+        <button
+            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors bg-black bg-opacity-50 rounded-full p-2"
+            onclick="closeModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
 </body>
+
 </html>
