@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>應方的二手小舖 - 雲端版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-indigo-700 p-6 text-white text-center shadow-lg">
+        <h1 class="text-2xl font-bold">應方的二手貨架</h1>
+        <p class="text-sm opacity-80 mt-1">即時同步 Google 表格資料</p>
+    </nav>
+
+    <div class="container mx-auto p-6">
+        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="loading" class="col-span-full text-center py-20 text-gray-500">
+                正在從雲端獲取商品資料...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. 在這裡貼上你剛剛複製的 Google 表格 CSV 連結
+        const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg7z0pNsCGFv5vdiY2xVWTr1UCAISs9sC3b4mALjUuGDF2g--d9KUbG3-1xMnW-wHXDagPn6ipcMwx/pub?gid=0&single=true&output=csv";
+
+        function loadProducts() {
+            Papa.parse(sheetUrl, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    const data = results.data;
+                    const list = document.getElementById('product-list');
+                    const loader = document.getElementById('loading');
+                    
+                    loader.style.display = 'none';
+                    list.innerHTML = ''; // 清空列表
+
+                    data.forEach(item => {
+                        // 確保該列不是空的（預防最後一行空行）
+                        if(item.name) {
+                            list.innerHTML += `
+                                <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden">
+                                    <img src="${item.image}" class="w-full h-56 object-cover" alt="${item.name}">
+                                    <div class="p-5">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h2 class="text-xl font-bold text-gray-800">${item.name}</h2>
+                                            <span class="text-indigo-600 font-black text-lg">NT$ ${item.price}</span>
+                                        </div>
+                                        <p class="text-gray-500 text-sm h-12 overflow-hidden mb-4">${item.description}</p>
+                                        <a href="${item.contact}" target="_blank" class="block w-full text-center bg-indigo-600 text-white py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
+                                            我有興趣
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+            });
+        }
+
+        window.onload = loadProducts;
+    </script>
+</body>
+</html>
