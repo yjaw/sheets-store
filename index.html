@@ -94,9 +94,7 @@
         function formatImageUrl(url) {
             if (!url || typeof url !== 'string') return 'default_image.jpg';
 
-            // 如果已經是正確的格式，直接回傳
             if (url.includes('drive.google.com/uc?id=')) {
-                // 去除網址後面的 /view 等雜質
                 const cleanId = url.split('id=')[1].split(/[&/]/)[0];
                 return `https://drive.google.com/thumbnail?id=${cleanId}&sz=w1000`;
             }
