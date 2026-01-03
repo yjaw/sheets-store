@@ -50,11 +50,11 @@
                             } else {
                                 statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
                             }
-
+                            const ImageUrl = formatImageUrl(item.image);
                             list.innerHTML += `
-                                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer" onclick="openModal('image/${item.image}')">
+                                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer" onclick="openModal('${ImageUrl}')">
                                     <div class="relative">
-                                        <img src="image/${item.image}" class="w-full h-56 object-cover" alt="${item.name}">
+                                        <img src="${ImageUrl}" class="w-full h-56 object-cover" alt="${item.name}">
                                         <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold ${statusClass}">
                                             ${item.status || '未註記'}
                                         </span>
@@ -88,6 +88,13 @@
             document.body.style.overflow = ''; // Restore scrolling
         }
 
+        function formatImageUrl(url) {
+            if (url.includes('drive.google.com')) {
+                const fileId = url.split('/d/')[1].split('/')[0];
+                return `https://drive.google.com/uc?id=${fileId}`;
+            }
+            return url; // 如果不是 Google Drive 連結（例如 GitHub 路徑），則保持原樣
+        }
         window.onload = loadProducts;
     </script>
 
