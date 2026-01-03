@@ -41,7 +41,7 @@
 
                     data.forEach(item => {
                         if (item.name) {
-                            // 設定狀態標籤的顏色
+                            // 設定狀態標籤的顏色 
                             let statusClass = "";
                             if (item.status === "有存貨") {
                                 statusClass = "bg-green-100 text-green-800";
@@ -51,7 +51,9 @@
                                 statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
                             }
                             const ImageUrl = formatImageUrl(item.image);
+
                             console.log(ImageUrl);
+
                             list.innerHTML += `
                                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer" onclick="openModal('${ImageUrl}')">
                                     <div class="relative">
@@ -90,11 +92,29 @@
         }
 
         function formatImageUrl(url) {
-            if (url.includes('drive.google.com')) {
-                const fileId = url.split('/d/')[1].split('/')[0];
-                return `https://drive.google.com/uc?id=${fileId}`;
+            if (!url || typeof url !== 'string') return 'default_image.jpg';
+
+            // 如果已經是正確的格式，直接回傳
+            if (url.includes('drive.google.com/uc?id=')) {
+                // 去除網址後面的 /view 等雜質
+                const cleanId = url.split('id=')[1].split(/[&/]/)[0];
+                return `https://drive.google.com/uc?id=${cleanId}`;
             }
-            return url; // 如果不是 Google Drive 連結（例如 GitHub 路徑），則保持原樣
+
+            if (url.includes('drive.google.com')) {
+                let fileId = "";
+                try {
+                    if (url.includes('/d/')) {
+                        fileId = url.split('/d/')[1].split('/')[0];
+                    } else if (url.includes('id=')) {
+                        fileId = url.split('id=')[1].split(/[&/]/)[0];
+                    }
+                    return fileId ? `https://drive.google.com/uc?id=${fileId}` : url;
+                } catch (e) {
+                    return 'default_image.jpg';
+                }
+            }
+            return 'default_image.jpg';
         }
         window.onload = loadProducts;
     </script>
