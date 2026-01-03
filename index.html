@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>google sheet store</title>
+    <title>Google Sheet Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 
 <body class="bg-gray-50">
     <nav class="bg-indigo-700 p-6 text-white text-center shadow-lg">
-        <h1 class="text-2xl font-bold">google sheet store</h1>
-        <p class="text-sm opacity-80 mt-1">build your own store without coding</p>
+        <h1 class="text-2xl font-bold">Google Sheet Store</h1>
+        <p class="text-sm opacity-80 mt-1"><a href="https://github.com/yjaw/sheets-store" class="hover:underline">see
+                how to build your own store with google sheet in 1 minute</a></p>
     </nav>
 
     <div class="container mx-auto p-6">
@@ -24,7 +25,7 @@
     </div>
 
     <script>
-        // 1. 在這裡貼上你剛剛複製的 Google 表格 CSV 連結
+        //  1.Must do: Paste your Google Sheet CSV link here, otherwise your website will display my products
         const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSg7z0pNsCGFv5vdiY2xVWTr1UCAISs9sC3b4mALjUuGDF2g--d9KUbG3-1xMnW-wHXDagPn6ipcMwx/pub?gid=0&single=true&output=csv";
 
         function loadProducts() {
@@ -37,18 +38,18 @@
                     const loader = document.getElementById('loading');
 
                     loader.style.display = 'none';
-                    list.innerHTML = ''; // 清空列表
+                    list.innerHTML = '';
 
                     data.forEach(item => {
                         if (item.name) {
-                            // 設定狀態標籤的顏色 
+                            // 2.Optional: Set the status tag color and text (must be consistent with your google sheet's status)
                             let statusClass = "";
                             if (item.status === "In Stock") {
                                 statusClass = "bg-green-100 text-green-800";
                             } else if (item.status === "Reserved") {
                                 statusClass = "bg-yellow-100 text-yellow-800";
                             } else {
-                                statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
+                                statusClass = "bg-gray-100 text-gray-800"; // default or sold out
                             }
                             const ImageUrl = formatImageUrl(item.image);
 
