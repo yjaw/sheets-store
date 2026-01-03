@@ -33,7 +33,7 @@ Google Sheet Store is a lightweight, frontend-only online store template. It fet
 2.  Create a new folder in Google Drive for your store images and set it to public.
 3.  Create your own Google Sheet with the following headers: `name`, `price`, `description`, `image`, `status`.
     -   `image`: Use Google Drive share link.
-    -   `status`: Use "有存貨" (In Stock), "預定中" (Reserved), etc.
+    -   `status`: Use "In Stock", "Reserved" or "Sold Out".
 4.  Publish your Google Sheet to the web as a **CSV**.
 5.  Open `index.html` and replace the `sheetUrl` variable with your new CSV link.
 6.  Open `index.html` in your browser to see your store.
@@ -64,12 +64,12 @@ Google Sheet Store 是一個輕量級、純前端的線上商店模板。它直�
     -   點選 Settings 然後 Page 選項。
     -   在 branch section 中選擇 `main`。
     -   點選 "Save"。
-    -   等待幾秒钟，你的網站連結就會顯示出來。
+    -   等待幾秒鐘，你的網站連結就會顯示出來。
     -   你的網站連結會類似於 `https://<your-username>.github.io/sheets-store/`。
 2.  在 Google Drive 中創造一個新的文件夾，用於存放您的產品圖片，並設定為公開。
 3.  建立您自己的 Google 試算表，並包含以下標題：`name` (名稱), `price` (價格), `description` (描述), `image` (圖片), `status` (狀態)。
     -   `image`: 使用Google Drive 的分享連結。
-    -   `status`: 可使用 "有存貨"、"預定中"、"已售出"等狀態。
+    -   `status`: 使用 "In Stock"、"Reserved" 或是 "Sold Out"。
 4.  將您的 Google 試算表發布到網路，格式選擇 **CSV**。
 5.  打開 `index.html`，將 `sheetUrl` 變數替換為您的 Google 試算表的 CSV 連結。
 6.  在瀏覽器中打開 `index.html` 即可看到您的商店。

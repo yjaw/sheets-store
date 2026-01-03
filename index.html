@@ -43,9 +43,9 @@
                         if (item.name) {
                             // 設定狀態標籤的顏色 
                             let statusClass = "";
-                            if (item.status === "有存貨") {
+                            if (item.status === "In Stock") {
                                 statusClass = "bg-green-100 text-green-800";
-                            } else if (item.status === "預定中") {
+                            } else if (item.status === "Reserved") {
                                 statusClass = "bg-yellow-100 text-yellow-800";
                             } else {
                                 statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
