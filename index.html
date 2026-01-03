@@ -98,7 +98,7 @@
             if (url.includes('drive.google.com/uc?id=')) {
                 // 去除網址後面的 /view 等雜質
                 const cleanId = url.split('id=')[1].split(/[&/]/)[0];
-                return `https://drive.google.com/uc?id=${cleanId}`;
+                return `https://drive.google.com/thumbnail?id=${cleanId}&sz=w1000`;
             }
 
             if (url.includes('drive.google.com')) {
@@ -109,7 +109,7 @@
                     } else if (url.includes('id=')) {
                         fileId = url.split('id=')[1].split(/[&/]/)[0];
                     }
-                    return fileId ? `https://drive.google.com/uc?id=${fileId}` : url;
+                    return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000` : url;
                 } catch (e) {
                     return 'default_image.jpg';
                 }
