@@ -36,7 +36,7 @@ Google Sheet Store is a lightweight, frontend-only online store template. It fet
     -   `status`: Use "In Stock", "Reserved" or "Sold Out".
 4.  Publish your Google Sheet to the web as a **CSV**.
 5.  Open `index.html` and replace the `sheetUrl` variable with your new CSV link.
-6.  Open `index.html` in your browser to see your store.
+6.  Open your website (`https://<your-username>.github.io/sheets-store/`) in your browser to see your store.
 
 ---
 
@@ -72,4 +72,4 @@ Google Sheet Store 是一個輕量級、純前端的線上商店模板。它直�
     -   `status`: 使用 "In Stock"、"Reserved" 或是 "Sold Out"。
 4.  將您的 Google 試算表發布到網路，格式選擇 **CSV**。
 5.  打開 `index.html`，將 `sheetUrl` 變數替換為您的 Google 試算表的 CSV 連結。
-6.  在瀏覽器中打開 `index.html` 即可看到您的商店。
+6.  在瀏覽器中打開 `https://<your-username>.github.io/sheets-store/` 即可看到您的商店。
