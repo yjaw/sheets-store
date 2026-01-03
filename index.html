@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>應方的二手小舖 - 雲端版</title>
+    <title>google sheet store</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body class="bg-gray-50">
     <nav class="bg-indigo-700 p-6 text-white text-center shadow-lg">
-        <h1 class="text-2xl font-bold">應方的二手貨架</h1>
-        <p class="text-sm opacity-80 mt-1">即時同步 Google 表格資料</p>
+        <h1 class="text-2xl font-bold">google sheet store</h1>
+        <p class="text-sm opacity-80 mt-1">build your own store without coding</p>
     </nav>
 
     <div class="container mx-auto p-6">
         <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div id="loading" class="col-span-full text-center py-20 text-gray-500">
-                正在從雲端獲取商品資料...
+                fetching data from google sheet...
             </div>
         </div>
     </div>
@@ -38,20 +38,35 @@
                     list.innerHTML = ''; // 清空列表
 
                     data.forEach(item => {
-                        // 確保該列不是空的（預防最後一行空行）
                         if(item.name) {
+                            // 設定狀態標籤的顏色
+                            let statusClass = "";
+                            if (item.status === "有存貨") {
+                                statusClass = "bg-green-100 text-green-800";
+                            } else if (item.status === "預定中") {
+                                statusClass = "bg-yellow-100 text-yellow-800";
+                            } else {
+                                statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
+                            }
+
                             list.innerHTML += `
-                                <div class="bg-white rounded-xl shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 overflow-hidden">
-                                    <img src="images/${item.image}" class="w-full h-56 object-cover" alt="${item.name}">
+                                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden">
+                                    <div class="relative">
+                                        <img src="${item.image}" class="w-full h-56 object-cover" alt="${item.name}">
+                                        <span class="absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold ${statusClass}">
+                                            ${item.status || '未註記'}
+                                        </span>
+                                    </div>
                                     <div class="p-5">
                                         <div class="flex justify-between items-start mb-2">
                                             <h2 class="text-xl font-bold text-gray-800">${item.name}</h2>
                                             <span class="text-indigo-600 font-black text-lg">NT$ ${item.price}</span>
                                         </div>
-                                        <p class="text-gray-500 text-sm h-12 overflow-hidden mb-4">${item.description}</p>
-                                        <a href="${item.contact}" target="_blank" class="block w-full text-center bg-indigo-600 text-white py-2 rounded-lg font-medium hover:bg-indigo-700 transition">
-                                            我有興趣
-                                        </a>
+                                        <p class="text-gray-500 text-sm h-12 overflow-hidden">${item.description}</p>
+                                        
+                                        <div class="mt-4 pt-4 border-t border-gray-50 text-right">
+                                            <span class="text-xs text-gray-400">更新時間：${new Date().toLocaleDateString()}</span>
+                                        </div>
                                     </div>
                                 </div>
                             `;
