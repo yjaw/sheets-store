@@ -92,7 +92,7 @@
         }
 
         function formatImageUrl(url) {
-            if (!url || typeof url !== 'string') return 'default_image.jpg';
+            if (!url || typeof url !== 'string') return 'assets/default_image.jpg';
 
             if (url.includes('drive.google.com/uc?id=')) {
                 const cleanId = url.split('id=')[1].split(/[&/]/)[0];
@@ -109,10 +109,10 @@
                     }
                     return fileId ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000` : url;
                 } catch (e) {
-                    return 'default_image.jpg';
+                    return 'assets/default_image.jpg';
                 }
             }
-            return 'default_image.jpg';
+            return 'assets/default_image.jpg';
         }
         window.onload = loadProducts;
     </script>
