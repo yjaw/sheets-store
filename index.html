@@ -53,7 +53,8 @@
                     list.innerHTML = '';
 
                     data.forEach(item => {
-                        if (item.name) {
+                        if (item.name && item.status) {
+
                             // 2.Optional: Set the status tag color and text (must be consistent with your google sheet's status)
                             let statusClass = "";
                             if (item.status === "In Stock") {
