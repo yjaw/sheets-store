@@ -51,6 +51,7 @@
                                 statusClass = "bg-gray-100 text-gray-800"; // 預設或已售出
                             }
                             const ImageUrl = formatImageUrl(item.image);
+                            console.log(ImageUrl);
                             list.innerHTML += `
                                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100 overflow-hidden cursor-pointer" onclick="openModal('${ImageUrl}')">
                                     <div class="relative">
